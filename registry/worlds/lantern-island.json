@@ -1,0 +1,23 @@
+{
+  "id": "lantern-island",
+  "name": "Lantern Island",
+  "description": "A compact bilingual coastal mystery, using only built-in storytelling plugins.",
+  "maintainer": "official",
+  "author": "Covel",
+  "repository": "https://github.com/covel-ai/covel-worlds",
+  "path": "worlds/lantern-island",
+  "ref": "main",
+  "category": "mystery",
+  "locales": ["en-US", "zh-CN"],
+  "license": "MIT",
+  "covelVersion": ">=0.0.39",
+  "status": "active",
+  "demo": "https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island",
+  "notes": "",
+  "translations": {
+    "zh-CN": {
+      "name": "灯塔岛",
+      "description": "仅使用内置叙事插件的双语海岛谜案，展示最小世界包。"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+schemaVersion: "1.0"
+id: lantern-island
+name:
+  en-US: Lantern Island
+  zh-CN: 灯塔岛
+version: 1.0.0
+summary:
+  en-US: A compact bilingual coastal mystery, using only built-in storytelling
+    plugins.
+  zh-CN: 仅使用内置叙事插件的双语海岛谜案，展示最小世界包。
+defaultLocale: en-US
+supportedLocales:
+  - en-US
+  - zh-CN
+tags:
+  - mystery
+  - example
+pluginPolicy:
+  preset: traditional-story
+  requiredPlugins:
+    - narrator
+  recommendedPlugins:
+    - guide
+    - codex

@@ -1,0 +1,7 @@
+schemaVersion: 1
+sources:
+  market-rules:
+    kind: json
+    path: data/rules.json
+    to: lorebook
+    key: id

@@ -1,0 +1,25 @@
+schemaVersion: "1.0"
+id: clockwork-market
+name:
+  en-US: Clockwork Market
+  zh-CN: 发条集市
+version: 1.0.0
+summary:
+  en-US: A bilingual world-data example with a portable lorebook source and
+    explicit plugin policy.
+  zh-CN: 包含可移植知识条目与明确插件策略的双语世界数据示例。
+defaultLocale: en-US
+supportedLocales:
+  - en-US
+  - zh-CN
+tags:
+  - fantasy
+  - example
+pluginPolicy:
+  preset: traditional-story
+  requiredPlugins:
+    - narrator
+  recommendedPlugins:
+    - guide
+    - codex
+worldData: data/world.data.yaml

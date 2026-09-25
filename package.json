@@ -1,0 +1,16 @@
+{
+  "name": "covel-world-directory",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/registry.mjs",
+    "check": "node scripts/registry.mjs --check && node scripts/check-worlds.mjs",
+    "test": "npm run check && node --test scripts/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "yaml": "2.8.3"
+  }
+}

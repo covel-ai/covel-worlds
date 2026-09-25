@@ -1,0 +1,23 @@
+{
+  "id": "clockwork-market",
+  "name": "Clockwork Market",
+  "description": "A bilingual world-data example with a portable lorebook source and explicit plugin policy.",
+  "maintainer": "official",
+  "author": "Covel",
+  "repository": "https://github.com/covel-ai/covel-worlds",
+  "path": "worlds/clockwork-market",
+  "ref": "main",
+  "category": "fantasy",
+  "locales": ["en-US", "zh-CN"],
+  "license": "MIT",
+  "covelVersion": ">=0.0.39",
+  "status": "active",
+  "demo": "https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market",
+  "notes": "",
+  "translations": {
+    "zh-CN": {
+      "name": "发条集市",
+      "description": "包含可移植知识条目与明确插件策略的双语世界数据示例。"
+    }
+  }
+}
