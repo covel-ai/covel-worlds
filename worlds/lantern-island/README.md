@@ -2,7 +2,7 @@
 
 A compact bilingual coastal mystery, using only built-in storytelling plugins.
 
-Version: `1.0.0` · License: MIT · Languages: English, 简体中文.
+Version: `1.1.0` · Covel `>=0.0.50` · License: MIT · Languages: English, 简体中文.
 
 Install this directory through **Settings → Packages → Install a world from GitHub** in a Covel build with GitHub world installation support. In earlier builds, ZIP this directory's contents with `world.yaml` at the archive root and use world ZIP import.
 

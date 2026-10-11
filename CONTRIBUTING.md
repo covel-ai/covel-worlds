@@ -4,4 +4,4 @@ Add `registry/worlds/<id>.json` using an existing entry and `registry/schema.jso
 
 Use an independent world ID and `world.yaml` version. Keep executable plugins in their own packages. Never include credentials, personal exports, acceptance-test transcripts or unverifiable quality claims. Explain gameplay, dependencies, installation and limitations in the package README.
 
-Run `npm run generate` and `npm test`, then commit the entry and regenerated READMEs. Include a concise content description and validation evidence in the PR. A directory entry alone does not certify code or content safety. See [publishing](docs/publishing.md).
+Run `npm run generate` and `npm test`, and `pnpm validate:world --strict <path-to-world>` from a Covel checkout of the version you list, then commit the entry and regenerated READMEs. Include a concise content description and validation evidence in the PR. A directory entry alone does not certify code or content safety. See [publishing](docs/publishing.md).

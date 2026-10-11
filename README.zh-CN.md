@@ -21,8 +21,8 @@
 
 | 世界 | 功能 | 作者 | Covel 版本 | 状态 | 演示 | 安装来源 |
 | --- | --- | --- | --- | --- | --- | --- |
-| [发条集市](https://github.com/covel-ai/covel-worlds) | 包含可移植知识条目与明确插件策略的双语世界数据示例。 | Covel | &gt;=0.0.39 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
-| [灯塔岛](https://github.com/covel-ai/covel-worlds) | 仅使用内置叙事插件的双语海岛谜案，展示最小世界包。 | Covel | &gt;=0.0.39 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
+| [发条集市](https://github.com/covel-ai/covel-worlds) | 包含可移植知识条目与明确插件策略的双语世界数据示例。 | Covel | &gt;=0.0.50 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
+| [灯塔岛](https://github.com/covel-ai/covel-worlds) | 仅使用内置叙事插件的双语海岛谜案，展示最小世界包。 | Covel | &gt;=0.0.50 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
 
 ### 社区世界
 

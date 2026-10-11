@@ -1,13 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ackness/covel/v0.0.50/packages/shared/schemas/world-manifest.schema.json
 schemaVersion: "1.0"
 id: lantern-island
-name:
-  en-US: Lantern Island
-  zh-CN: 灯塔岛
-version: 1.0.0
-summary:
-  en-US: A compact bilingual coastal mystery, using only built-in storytelling
-    plugins.
-  zh-CN: 仅使用内置叙事插件的双语海岛谜案，展示最小世界包。
+name: Lantern Island
+version: 1.1.0
+summary: A compact bilingual coastal mystery, using only built-in storytelling plugins.
 defaultLocale: en-US
 supportedLocales:
   - en-US
@@ -15,10 +11,15 @@ supportedLocales:
 tags:
   - mystery
   - example
+author:
+  name: Covel
+  url: https://github.com/covel-ai
+license: MIT
+homepage: https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island
 pluginPolicy:
-  preset: traditional-story
-  requiredPlugins:
+  presetId: traditional-story
+  requested:
     - narrator
-  recommendedPlugins:
+  recommended:
     - guide
     - codex

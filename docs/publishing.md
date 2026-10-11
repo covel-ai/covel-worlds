@@ -1,8 +1,8 @@
 # Publishing and updates / 发布与更新
 
-A world directory contains `world.yaml`, an English fallback `WORLD.md`, optional `WORLD.<locale>.md`, and referenced data/media files. All paths remain inside the package. No build/install scripts run during import.
+A world directory contains `world.yaml`, `WORLD.md` in the world's `defaultLocale`, and referenced data/media files. Each file holds one language: other supported locales live beside it as `world.<locale>.yaml`, `WORLD.<locale>.md` and `<file>.<locale>.<ext>`, with the locale spelled exactly as `supportedLocales` writes it. All paths remain inside the package. No build/install scripts run during import.
 
-世界包目录包含 manifest、默认英文设定、可选语言文件，以及引用的数据和媒体。路径不可越出包目录。导入时不会执行构建或安装脚本。
+世界包目录包含 manifest、`defaultLocale` 语言的 `WORLD.md`，以及引用的数据和媒体。每个文件只写一种语言，其他语言放在旁边的 `world.<locale>.yaml`、`WORLD.<locale>.md` 与 `<文件>.<locale>.<扩展名>` 中，locale 写法与 `supportedLocales` 完全一致。路径不可越出包目录。导入时不会执行构建或安装脚本。
 
 Each world has its own version, independent of Covel. Branch installs track that branch; repository URLs track the default branch. Tags/commits are pinned. To choose another tag, paste the same repository and world directory with a new ref, for example `https://github.com/covel-ai/covel-worlds/tree/lantern-island%2Fv1.0.0/worlds/lantern-island` after publishing that tag. This is a URL example, not an existing release.
 
@@ -12,4 +12,4 @@ Check updates in Settings → Packages. Compare versions, commits and changed fi
 
 在设置中检查更新，查看版本、commit 与文件变化，确认后将在后端重启时应用。本地修改的文件及在 Covel 中编辑过的世界会阻止覆盖，请先导出并处理修改。更新保留存档与 overrides，不会静默同步现有会话；数据变化和冲突由 world-data preflight/sync 单独处理。文件替换失败可恢复旧包，不代表可以撤销玩法或数据迁移。
 
-For complete runtime validation, use a matching Covel checkout's `worldManifestSchema`, `loadSingleWorld` and world-data preflight. This repository's checks validate registry consistency and the shipped examples' portable file layout; they do not replace gameplay verification or compatibility tests. Record test evidence in PRs, not promotional descriptions.
+For complete validation, run `pnpm validate:world --strict <path-to-world>` in a Covel checkout of the targeted release; it checks the manifest, lore, plugin IDs, contracts, translations and every data record. World-data preflight in the running app checks a session import. This repository's checks validate registry consistency and the shipped examples' portable file layout; they do not replace gameplay verification or compatibility tests. Record test evidence in PRs, not promotional descriptions.
