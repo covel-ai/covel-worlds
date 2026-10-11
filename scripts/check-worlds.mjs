@@ -15,11 +15,26 @@ for (const folder of await readdir(root)) {
   if (manifest.id !== folder || ids.has(manifest.id))
     throw new Error(`Invalid or duplicate world id: ${folder}`);
   ids.add(manifest.id);
+  // One language per file: main files hold defaultLocale text, and every other
+  // supported locale has its own translation files beside them.
   for (const key of ["name", "summary"])
-    if (!manifest[key]?.["en-US"] || !manifest[key]?.["zh-CN"])
-      throw new Error(`${folder}: missing display translation`);
-  for (const file of ["WORLD.md", "WORLD.zh-CN.md", "LICENSE"])
+    if (typeof manifest[key] !== "string" || !manifest[key].trim())
+      throw new Error(`${folder}: ${key} must be ${manifest.defaultLocale} text`);
+  const locales = manifest.supportedLocales ?? [];
+  if (!locales.includes(manifest.defaultLocale))
+    throw new Error(`${folder}: supportedLocales must include defaultLocale`);
+  for (const file of ["WORLD.md", "LICENSE", "README.md"])
     await readFile(path.join(directory, file), "utf8");
+  for (const locale of locales) {
+    if (locale === manifest.defaultLocale) continue;
+    await readFile(path.join(directory, `WORLD.${locale}.md`), "utf8");
+    const translation = parse(
+      await readFile(path.join(directory, `world.${locale}.yaml`), "utf8"),
+    );
+    for (const key of ["name", "summary"])
+      if (typeof translation?.[key] !== "string" || !translation[key].trim())
+        throw new Error(`${folder}: world.${locale}.yaml lacks ${key}`);
+  }
   const verifyPath = async (relative) => {
     if (
       typeof relative !== "string" ||

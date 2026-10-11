@@ -5,12 +5,57 @@ description: Create or update a Covel world package and its directory entry, inc
 
 # Create a Covel world
 
-Build the requested world under `worlds/<unique-id>/`. Read the compact `worlds/lantern-island` example first; use `worlds/clockwork-market` when the world needs imported data. Scale the lore and dimensions to the requested experience.
+Build the requested world under `worlds/<unique-id>/`. Read the compact `worlds/lantern-island` example first; use `worlds/clockwork-market` when the world needs imported data. Scale the lore and data to the requested experience.
 
-- Write `world.yaml` with schemaVersion, id, name, summary, version, defaultLocale and supportedLocales. Use English fallback text and locale-keyed display fields. Keep `WORLD.md` as the default lore and add `WORLD.<locale>.md` when translated.
-- Declare required/recommended plugins in `pluginPolicy`; verify their IDs and capabilities against the targeted Covel version. This repository does not contain the framework or built-in plugins. Installing a world never installs or authorizes those dependencies.
-- Keep paths inside the world directory. Put data in `data/`, media in `media/`, and document licenses. Do not embed executable plugin code, API keys or local exports.
-- For structured data, use a `worldData` descriptor and validate each source against its target schema. See the matching Covel checkout's [world-data reference](https://github.com/ackness/covel/blob/main/docs/reference/world-data.md) and `packages/shared/src/schemas/world.ts`; current upstream may differ from a released version.
-- Add a registry entry using `maintainer: community` unless the user is publishing a Covel-maintained official example. Describe gameplay and installation, not internal test transcripts.
+Field tables, data contracts and the plugin catalogue are **not copied into this skill**. Query them from a Covel checkout of the version you target (`git clone https://github.com/ackness/covel`, check out the release tag, `pnpm install`), so this skill does not go stale when the framework changes. The current examples target Covel `>=0.0.50`.
 
-Install validation tools with `npm ci` when needed. Run `npm run generate` and `npm test`. These checks validate the directory and sample layout; additionally validate manifests and referenced data against the target Covel checkout and run world-data preflight when available. Report any unrun gameplay or runtime checks plainly. Follow [publishing and updates](../../../docs/publishing.md) for versions, release refs and edited-world handling.
+## 1. Ask the target Covel what a world can contain
+
+In the Covel checkout:
+
+```bash
+pnpm describe:authoring          # files of a world package, data targets, plugin catalogue
+pnpm describe:authoring --json   # the same, machine-readable
+```
+
+It lists every kind of content a world can preload, the plugin that receives it, the file path it belongs at, a valid example, and each plugin's ID, contracts and `pluginSettings`. Use only the plugin IDs, contracts and settings it lists; add `--plugins <dir>` to include community plugins. Authoritative references in that checkout: `docs/reference/schema/world-manifest.md`, `docs/reference/world-data.md`, `docs/reference/world-installation.md`.
+
+## 2. Write the package
+
+```
+worlds/<id>/
+├── world.yaml             # one language: defaultLocale
+├── world.<locale>.yaml    # translations of world.yaml display text, same keys
+├── WORLD.md               # lore in the default language
+├── WORLD.<locale>.md      # full lore in another supported locale
+├── data/, characters/, media/
+├── README.md
+└── LICENSE
+```
+
+- `world.yaml` starts with `# yaml-language-server: $schema=https://raw.githubusercontent.com/ackness/covel/<tag>/packages/shared/schemas/world-manifest.schema.json` and declares `schemaVersion`, `id` (equal to the directory name), `name`, `version`, `summary`, `defaultLocale` and `supportedLocales`.
+- **One language per file.** Main files hold only the `defaultLocale` text. Never write inline maps such as `name: { en-US: …, zh-CN: … }`; Covel rejects them (`inline-locale-map`). Put each other language in `<name>.<locale>.<ext>` beside the file, with only the translated text under the same keys and ids (`world.zh-CN.yaml`, `data/rules.zh-CN.json`). Spell `<locale>` exactly as `supportedLocales` does (`zh-CN`, not `zh`); a bare-language file is rejected.
+- `pluginPolicy` uses `presetId` (a built-in pack such as `traditional-story`, `dialogue-mode`, `low-cost`, or one of the world's own `packs`), `requested` (enabled by default), `recommended` (suggested only) and `requires` (contract IDs such as `action-check@1`, satisfied by any installed provider). Installing a world never installs or authorizes plugins.
+- Files at the conventional paths that `describe:authoring` prints are imported without a descriptor. Write `data/world.data.yaml` and `worldData` only when a file is elsewhere, a kind of content spans several files, or import order matters; then list every source. Lorebook records need `id` and `content`, and `keys` when `strategy: selective`.
+- Optional credits: `author` (`name`, `url`, `about`, `links`), `license`, `homepage`, all `https`. Do not invent an author or links the user did not give.
+- Optional presentation: `cover` and `accentColor`, `themeMusic`, `defaultViewMode`. A `cover` must name an existing image one directory under `media/`.
+- Hide spoilers from the player inside `<!-- narrator-only -->` … `<!-- /narrator-only -->` lines in every language edition of `WORLD.md`.
+- Keep every path inside the world directory. Do not embed executable plugin code, API keys, personal exports or test transcripts. Document media licenses.
+
+## 3. Register the world
+
+Add `registry/worlds/<id>.json` (see existing entries and `registry/schema.json`). Use `maintainer: community` unless the user publishes a Covel-maintained official example, and set `covelVersion` to the range you validated against, or `null` when compatibility has not been established.
+
+## 4. Validate
+
+In this repository: `npm ci` once, then `npm run generate` and `npm test` (directory consistency and the portable layout of the shipped examples).
+
+Against the target Covel checkout (the real manifest, lore, plugin-ID, contract and per-record data validation):
+
+```bash
+pnpm validate:world --strict /path/to/covel-worlds/worlds/<id>
+```
+
+Fix every error and judge each warning (a missing translation is a warning). Report plainly which checks did not run, such as an actual play session.
+
+Follow [publishing and updates](../../../docs/publishing.md) for versions, release refs and edited-world handling.

@@ -1,13 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/ackness/covel/v0.0.50/packages/shared/schemas/world-manifest.schema.json
 schemaVersion: "1.0"
 id: clockwork-market
-name:
-  en-US: Clockwork Market
-  zh-CN: 发条集市
-version: 1.0.0
-summary:
-  en-US: A bilingual world-data example with a portable lorebook source and
-    explicit plugin policy.
-  zh-CN: 包含可移植知识条目与明确插件策略的双语世界数据示例。
+name: Clockwork Market
+version: 1.1.0
+summary: A bilingual world-data example with a portable lorebook source and explicit plugin policy.
 defaultLocale: en-US
 supportedLocales:
   - en-US
@@ -15,11 +11,16 @@ supportedLocales:
 tags:
   - fantasy
   - example
+author:
+  name: Covel
+  url: https://github.com/covel-ai
+license: MIT
+homepage: https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market
 pluginPolicy:
-  preset: traditional-story
-  requiredPlugins:
+  presetId: traditional-story
+  requested:
     - narrator
-  recommendedPlugins:
+  recommended:
     - guide
     - codex
 worldData: data/world.data.yaml

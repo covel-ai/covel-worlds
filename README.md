@@ -21,8 +21,8 @@ Official examples appear first; independently maintained community worlds have t
 
 | World | Description | Author | Covel version | Status | Demo | Install source |
 | --- | --- | --- | --- | --- | --- | --- |
-| [Clockwork Market](https://github.com/covel-ai/covel-worlds) | A bilingual world-data example with a portable lorebook source and explicit plugin policy. | Covel | &gt;=0.0.39 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
-| [Lantern Island](https://github.com/covel-ai/covel-worlds) | A compact bilingual coastal mystery, using only built-in storytelling plugins. | Covel | &gt;=0.0.39 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
+| [Clockwork Market](https://github.com/covel-ai/covel-worlds) | A bilingual world-data example with a portable lorebook source and explicit plugin policy. | Covel | &gt;=0.0.50 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
+| [Lantern Island](https://github.com/covel-ai/covel-worlds) | A compact bilingual coastal mystery, using only built-in storytelling plugins. | Covel | &gt;=0.0.50 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
 
 ### Community worlds
 

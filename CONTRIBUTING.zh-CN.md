@@ -4,4 +4,4 @@
 
 世界使用独立 ID 与 `world.yaml` 版本。执行代码作为插件单独发布。不要提交密钥、个人导出、验收过程日志或未经证实的质量声明。世界介绍关注玩法、依赖、安装和限制。
 
-运行 `npm run generate` 与 `npm test`，提交条目和更新后的 README。PR 中写明内容与验证结果。收录不代表安全认证。参见[发布说明](docs/publishing.md)。
+运行 `npm run generate` 与 `npm test`，并在所列 Covel 版本的仓库中运行 `pnpm validate:world --strict <世界目录>`，然后提交条目和更新后的 README。PR 中写明内容与验证结果。收录不代表安全认证。参见[发布说明](docs/publishing.md)。
