@@ -79,7 +79,7 @@ manual **Controlled online GitHub smoke** workflow runs this check separately.
 
 ## Shared source upgrades
 
-`vendor/catalog-kit` comes only from the commit in `catalog-kit.lock.json`. The lock
+`vendor/catalog-kit` comes from `covel-ai/covel-catalog/packages/catalog-kit`, at the commit in `catalog-kit.lock.json`. Both kinds use its canonical adapters and UI; this repository retains thin entry points. The lock
 records upstream repository/path, kit version and every source-file SHA256. CI
 rejects changed, missing or additional vendor files. Do not fix a shared bug here:
 fix the canonical source, test it, then update both consumers.
@@ -88,7 +88,7 @@ fix the canonical source, test it, then update both consumers.
 npm run kit:check
 npm run kit:sync -- --commit <full-upstream-commit-sha>
 # During joint development, a local canonical checkout can supply that exact commit:
-npm run kit:sync -- --commit <full-upstream-commit-sha> --source /root/covel-plugins
+npm run kit:sync -- --commit <full-upstream-commit-sha> --source /root/covel-catalog
 # Refresh the local package metadata/lock, then reinstall its exact files:
 npm install --package-lock-only --ignore-scripts @covel/catalog-kit@file:vendor/catalog-kit
 npm ci --ignore-scripts
@@ -101,6 +101,10 @@ Commit the generated lock and copy together, then run shared and adapter tests.
 does not write dependency directories into the immutable vendor tree. Use a clean
 `npm ci` after synchronizing; an existing installed copy may still contain the old
 kit even when npm has refreshed its dependency metadata.
+
+Shared service setup, policy publication and SQLite recovery are maintained in
+[covel-catalog operations](https://github.com/covel-ai/covel-catalog/blob/main/docs/operations.md).
+The initial deployment uses one Node process, SQLite and private disk storage.
 
 ## Deployment and policy
 

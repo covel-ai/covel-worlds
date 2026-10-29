@@ -7,7 +7,7 @@
     "collect": "node scripts/collect.mjs",
     "generate": "node scripts/collect.mjs --local",
     "check": "npm run kit:check && node scripts/check-workflow.mjs && node scripts/check-worlds.mjs && tsc --noEmit",
-    "test": "npm run check && node --test scripts/*.test.mjs vendor/catalog-kit/test/*.test.mjs",
+    "test": "npm run check && npm --prefix node_modules/@covel/catalog-kit test && node --test scripts/*.test.mjs",
     "kit:check": "node scripts/catalog-kit.mjs check",
     "kit:sync": "node scripts/catalog-kit.mjs sync",
     "build": "npm run generate && vite build",
