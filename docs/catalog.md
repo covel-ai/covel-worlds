@@ -6,6 +6,16 @@ the shared Node 26 service owns persistent revisions, query pagination, moderati
 private ZIP artifacts and request counters. Hosting that service is a separate
 deployment decision from building this repository.
 
+## Production Cloudflare deployment (2026-10-29)
+
+Production uses `https://api.covel.cc` from [covel-catalog-cloudflare](https://github.com/covel-ai/covel-catalog-cloudflare), with Workers, D1 and private R2. Its trusted Actions runner owns collection, checkpoints and ingestion for both directories. The Node deployment and combined collection workflow described below remain available for other deployments; they are not the active production pipeline.
+
+The active consumer workflow is **Publish site with Cloudflare catalog** (`.github/workflows/site.yml`): push to main or dispatch, validate the pinned kit, check the current API policy/catalog, build with `VITE_CATALOG_API`, then deploy the static shell. Configure repository **variable** `DIRECTORY_API_URL=https://api.covel.cc`. This consumer needs no catalog write token or Cloudflare credential. Local fixture `catalog.json` is excluded from the production artifact; the browser reads paginated live API summaries.
+
+Keep the legacy **Collect worlds and publish Pages** (`pages.yml`) workflow disabled in GitHub Actions and its `CATALOG_API_URL` variable unset. It uses the Node-only proxy and must not run against Cloudflare. Do not enable both pipelines. The shared legacy template remains byte-checked for consumers choosing the Node backend.
+
+Pages uses the GitHub Actions source and custom domain `worlds.covel.cc`. Set its DNS-only CNAME to `covel-ai.github.io`, then enable HTTPS enforcement after certificate issuance. To restore a previous site, revert the relevant site change and push main (or dispatch at that reviewed main revision); do not roll back the independent API policy or append-only version history. Collection/rule operations and D1/R2 recovery belong to the Cloudflare deployment repository.
+
 ## Public domains
 
 The chosen domains are `worlds.covel.cc` and `plugins.covel.cc`. The shared sidebar
