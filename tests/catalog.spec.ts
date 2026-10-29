@@ -22,6 +22,8 @@ test("worlds use the shared local UI: translated search, source tabs, details an
   const failures = await routeSite(page);
   await page.goto("https://covel.test/covel-worlds/");
   await expect(page.locator(".package-row")).toHaveCount(2);
+  await expect(page.locator("html")).toHaveClass(/dark/);
+  await expect(page.locator("html")).toHaveCSS("color-scheme", "dark");
   await expect(page.getByText("Local preview", { exact: true })).toBeVisible();
   await page.getByRole("tab", { name: "Community", exact: true }).click();
   await expect(page.getByText("No matching packages", { exact: true })).toBeVisible();
@@ -37,6 +39,12 @@ test("worlds use the shared local UI: translated search, source tabs, details an
   await expect(page.getByRole("dialog").getByText(/连接共享服务后/)).toBeVisible();
   await expect(page.getByRole("button", { name: "下载 ZIP", exact: true })).toBeDisabled();
   await page.keyboard.press("Escape");
+  await page.getByRole("button", { name: "Light theme", exact: true }).click();
+  await expect(page.locator("html")).not.toHaveClass(/dark/);
+  await page.reload();
+  await expect(page.locator(".package-row")).toHaveCount(1);
+  await expect(page.locator("html")).not.toHaveClass(/dark/);
+  await expect(page.locator("html")).toHaveCSS("color-scheme", "light");
   await page.getByRole("button", { name: "Dark theme", exact: true }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
   expect(failures).toEqual([]);
