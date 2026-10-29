@@ -1,6 +1,6 @@
 # Covel 世界库
 
-[Covel](https://github.com/ackness/covel) 的官方世界示例与社区世界目录。
+[Covel](https://github.com/ackness/covel) 的官方世界示例与自动采集的社区世界目录。
 
 <!-- languages:start -->
 [English](README.md) · **简体中文**
@@ -14,25 +14,18 @@
 
 ## 世界目录
 
-官方示例优先展示，独立维护的社区世界单独列出。
+[浏览世界目录](https://covel-ai.github.io/covel-worlds/) · [浏览插件目录](https://covel-ai.github.io/covel-plugins/)
 
-<!-- registry:start -->
-### 官方世界
+在公开仓库 About 区域的 Topics 中添加 **`covel-world` 或 `covel-worlds`**，即可自动发现；同时添加也只收录一次。采集器从 `world.yaml` 和翻译文件读取介绍，支持同仓多个世界。每六小时、主分支更新或手动触发时采集，GitHub 搜索索引可能存在延迟。
 
-| 世界 | 功能 | 作者 | Covel 版本 | 状态 | 演示 | 安装来源 |
-| --- | --- | --- | --- | --- | --- | --- |
-| [发条集市](https://github.com/covel-ai/covel-worlds) | 包含可移植知识条目与明确插件策略的双语世界数据示例。 | Covel | &gt;=0.0.50 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
-| [灯塔岛](https://github.com/covel-ai/covel-worlds) | 仅使用内置叙事插件的双语海岛谜案，展示最小世界包。 | Covel | &gt;=0.0.50 | 可用 | [演示](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [安装来源](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
+缺少有效元数据的仓库显示为待完善；归档仓库可筛选。普通社区仓库移除两个标签后退出，明确记录的历史迁移种子除外；公开性和黑名单规则始终生效。
 
-### 社区世界
-
-暂无收录的世界。
-<!-- registry:end -->
+仓库提供[灯塔岛](worlds/lantern-island/)和[发条集市](worlds/clockwork-market/)两个官方示例。页面介绍来自世界清单，不再维护 README 表格。
 
 ## 参与贡献
 
-通过 PR 向 `registry/worlds/` 添加 JSON 条目，世界内容可以保留在作者自己的仓库。参见[贡献说明](CONTRIBUTING.zh-CN.md)。结构化条目可用于后续网页目录，README 表格由条目生成。
+世界内容保留在作者自己的仓库，通过 Topics 自动加入，无需提交登记 PR。元数据要求见[贡献说明](CONTRIBUTING.zh-CN.md)。
 
-新增语言时，在 `registry/locales.json` 添加文案和文件名，创建含 language 与 registry 标记的 README，再运行 `npm run generate`。未翻译的条目回退英文。
+使用 Node 26，运行 `npm ci` 安装依赖。`npm run generate` 从本地示例生成离线目录；`npm run collect` 查询 GitHub；`npm test` 检查公共模块和世界适配器；`npm run build` 构建网站。服务 API 配置、部署与公共代码升级见[目录运维说明](docs/catalog.md)。
 
-先运行 `npm ci` 安装校验工具，再运行 `npm test` 检查目录与示例。[世界创作技能](.agents/skills/create-world/SKILL.md) 位于 `.agents/skills/create-world`。
+世界与插件目录共用同一套有版本的采集模块、UI 和服务协议。[共同规范](vendor/catalog-kit/SPEC.md) · [世界创作技能](.agents/skills/create-world/SKILL.md)。

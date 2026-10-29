@@ -1,3 +1,10 @@
 node_modules/
 .DS_Store
 *.zip
+dist/
+site/public/catalog.json
+.taste-skill/
+test-results/
+playwright-report/
+.cache/
+artifacts/

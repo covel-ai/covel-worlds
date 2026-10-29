@@ -3,14 +3,43 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate": "node scripts/registry.mjs",
-    "check": "node scripts/registry.mjs --check && node scripts/check-worlds.mjs",
-    "test": "npm run check && node --test scripts/*.test.mjs"
+    "dev": "vite --host 127.0.0.1",
+    "collect": "node scripts/collect.mjs",
+    "generate": "node scripts/collect.mjs --local",
+    "check": "npm run kit:check && node scripts/check-workflow.mjs && node scripts/check-worlds.mjs && tsc --noEmit",
+    "test": "npm run check && node --test scripts/*.test.mjs vendor/catalog-kit/test/*.test.mjs",
+    "kit:check": "node scripts/catalog-kit.mjs check",
+    "kit:sync": "node scripts/catalog-kit.mjs sync",
+    "build": "npm run generate && vite build",
+    "build:pages": "vite build",
+    "test:ui": "playwright test"
   },
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
     "yaml": "2.8.3"
+  },
+  "dependencies": {
+    "@covel/catalog-kit": "file:vendor/catalog-kit",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.64.0",
+    "radix-ui": "^1.8.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "semver": "^7.8.5",
+    "tailwind-merge": "^3.7.0"
   }
 }

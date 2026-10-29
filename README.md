@@ -1,6 +1,6 @@
 # Covel Worlds
 
-Official world examples and a community-maintained directory for [Covel](https://github.com/ackness/covel).
+Official world examples and an automatically collected community directory for [Covel](https://github.com/ackness/covel).
 
 <!-- languages:start -->
 **English** · [简体中文](README.zh-CN.md)
@@ -14,25 +14,18 @@ Worlds contain story content, prompts, settings and media. Required plugins are 
 
 ## Directory
 
-Official examples appear first; independently maintained community worlds have their own table.
+[Browse worlds](https://covel-ai.github.io/covel-worlds/) · [Browse plugins](https://covel-ai.github.io/covel-plugins/)
 
-<!-- registry:start -->
-### Official worlds
+Add **`covel-world` or `covel-worlds`** to the Topics in your public repository's About section. Either topic is sufficient; both are deduplicated. The collector reads `world.yaml` and translations, supports multiple worlds per repository, and runs every six hours, on main-branch pushes, or manually. GitHub search indexing can delay discovery.
 
-| World | Description | Author | Covel version | Status | Demo | Install source |
-| --- | --- | --- | --- | --- | --- | --- |
-| [Clockwork Market](https://github.com/covel-ai/covel-worlds) | A bilingual world-data example with a portable lorebook source and explicit plugin policy. | Covel | &gt;=0.0.50 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/clockwork-market) |
-| [Lantern Island](https://github.com/covel-ai/covel-worlds) | A compact bilingual coastal mystery, using only built-in storytelling plugins. | Covel | &gt;=0.0.50 | Available | [Demo](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) | [Install source](https://github.com/covel-ai/covel-worlds/tree/main/worlds/lantern-island) |
+Repositories without usable metadata remain visible as pending entries. Archived repositories are filterable. Removing both topics removes a community repository unless it is an explicitly recorded migration seed. Public visibility and moderation rules always apply.
 
-### Community worlds
-
-No worlds listed yet.
-<!-- registry:end -->
+The included examples are [Lantern Island](worlds/lantern-island/) and [Clockwork Market](worlds/clockwork-market/). Their manifests are the source of display metadata; this README no longer maintains a table.
 
 ## Contribute
 
-Submit a PR adding a JSON entry under `registry/worlds/`. Your world can stay in your own repository. See [CONTRIBUTING.md](CONTRIBUTING.md). Entries and translations are structured data for a future website; README tables are generated from them.
+Worlds stay in their authors' repositories. No registration PR is needed; see [CONTRIBUTING.md](CONTRIBUTING.md) for the metadata and Topics requirements.
 
-To add a README language, add its labels and filename to `registry/locales.json`, create the page with the language and registry markers, then run `npm run generate`. Missing entry translations fall back to English.
+Use Node 26 and `npm ci`. `npm run generate` produces an offline catalog from the examples; `npm run collect` queries GitHub. `npm test` checks the shared kit and world adapter, and `npm run build` builds the site. See [catalog operations](docs/catalog.md) for API configuration, deployment and shared-code upgrades.
 
-Run `npm ci` once. `npm test` checks the directory and examples. The authoring skill is [.agents/skills/create-world](.agents/skills/create-world/SKILL.md).
+The worlds and plugins directories consume the same versioned catalog kit, UI and service protocols. [Shared specification](vendor/catalog-kit/SPEC.md) · [World authoring skill](.agents/skills/create-world/SKILL.md).

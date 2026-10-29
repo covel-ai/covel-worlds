@@ -44,11 +44,11 @@ worlds/<id>/
 
 ## 3. Register the world
 
-Add `registry/worlds/<id>.json` (see existing entries and `registry/schema.json`). Use `maintainer: community` unless the user publishes a Covel-maintained official example, and set `covelVersion` to the range you validated against, or `null` when compatibility has not been established.
+Publish the package in a public repository and add either `covel-world` or `covel-worlds` to its GitHub Topics. The directory discovers both and reads `world.yaml`, supported translations and package paths automatically. No registration JSON or README table is required. Only configured Covel repositories receive the official designation; a package cannot declare itself official. Document compatibility evidence in the package README; missing authoritative compatibility metadata remains unknown.
 
 ## 4. Validate
 
-In this repository: `npm ci` once, then `npm run generate` and `npm test` (directory consistency and the portable layout of the shipped examples).
+In this repository, use Node 26: `npm ci` once, then `npm run generate` and `npm test` (offline catalog, shared contracts and the portable layout of the shipped examples).
 
 Against the target Covel checkout (the real manifest, lore, plugin-ID, contract and per-record data validation):
 
