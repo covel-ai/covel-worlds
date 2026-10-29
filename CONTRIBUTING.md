@@ -10,4 +10,4 @@ Before publishing, run `pnpm validate:world --strict <path-to-world>` from the t
 
 Collection is scheduled every six hours; large resumable runs and GitHub search indexing can take longer. Invalid metadata stays visible as pending with diagnostics. To leave, remove both topics; archived repositories are hidden by default. Report incorrect listings or content through [GitHub Issues](https://github.com/covel-ai/covel-worlds/issues).
 
-For changes to this directory, use Node 26, `npm ci`, `npm run generate`, `npm test`, and `npm run build`. Shared collection/UI/service changes belong in the canonical kit in `covel-plugins`; consumers update by a pinned commit rather than editing vendor files. See [catalog operations](docs/catalog.md).
+For changes to this directory, use Node 26, `npm ci`, `npm run generate`, `npm test`, and `npm run build`. Shared collection/UI/service changes belong in the canonical kit in [covel-catalog](https://github.com/covel-ai/covel-catalog); consumers update by a pinned commit rather than editing vendor files. See [catalog operations](docs/catalog.md).

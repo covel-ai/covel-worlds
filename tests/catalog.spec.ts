@@ -1,10 +1,27 @@
-import { test, expect, type Page } from "@playwright/test";
+import { test, expect, type Locator, type Page } from "@playwright/test";
 import { readFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 
 const root = process.cwd();
 const mime: Record<string, string> = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".woff": "font/woff", ".woff2": "font/woff2" };
 const snapshot = JSON.parse(await readFile(path.join(root, "site/public/catalog.json"), "utf8"));
+const projectResources = [
+  ["website", "https://covel.cc/", "Covel website", "Covel 官网"],
+  ["demo", "https://demo.covel.cc/", "Try in your browser", "在线体验"],
+  ["docs", "https://covel.cc/docs/en/", "User documentation", "使用文档"],
+  ["project-source", "https://github.com/ackness/covel", "Covel source", "Covel 主仓库"],
+  ["directory-source", "https://github.com/covel-ai/covel-worlds", "Directory source", "本目录源码"],
+  ["publishing", "https://github.com/covel-ai/covel-worlds/blob/main/CONTRIBUTING.md", "Publishing guide", "发布指南"],
+] as const;
+async function expectProjectResources(container: Locator, locale: "en" | "zh") {
+  for (const [resource, href, en, zh] of projectResources) {
+    const link = container.locator(`a[data-resource="${resource}"]`);
+    await expect(link).toBeVisible();
+    await expect(link).toHaveAttribute("href", href);
+    await expect(link).toContainText(locale === "en" ? en : zh);
+  }
+  await expect(container).toContainText("API key");
+}
 async function routeSite(page: Page, folder = "dist") {
   const failures: string[] = [];
   page.on("pageerror", (error) => failures.push(error.message));
@@ -25,6 +42,18 @@ test("worlds use the shared local UI: translated search, source tabs, details an
   await expect(page.locator("html")).toHaveClass(/dark/);
   await expect(page.locator("html")).toHaveCSS("color-scheme", "dark");
   await expect(page.getByText("Local preview", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "+ List your repository", exact: true }).click();
+  const listing = page.locator(".listing-dialog");
+  await expect(listing).toBeVisible();
+  await expect(listing.locator(".listing-steps > li")).toHaveCount(3);
+  await expect(listing.locator(".listing-topics code")).toHaveText(["covel-world", "covel-worlds"]);
+  await page.context().grantPermissions(["clipboard-read", "clipboard-write"], { origin: "https://covel.test" });
+  await listing.locator(".listing-topics > span").first().getByRole("button", { name: "Copy", exact: true }).click();
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe("covel-world");
+  await listing.locator(".listing-topics > span").last().getByRole("button", { name: "Copy", exact: true }).click();
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe("covel-worlds");
+  await expect(listing.locator('a[data-slot="button"]')).toHaveAttribute("href", "https://github.com/covel-ai/covel-worlds/blob/main/CONTRIBUTING.md");
+  await page.keyboard.press("Escape");
   await page.getByRole("tab", { name: "Community", exact: true }).click();
   await expect(page.getByText("No matching packages", { exact: true })).toBeVisible();
   await page.getByRole("tab", { name: "All sources", exact: true }).click();
@@ -65,15 +94,34 @@ for (const width of [390, 768, 1440]) {
       const sibling = page.getByRole("dialog").getByRole("link", { name: "Plugins", exact: true });
       await expect(sibling).toBeVisible();
       await expect(sibling).toHaveAttribute("href", "https://plugins.covel.cc/");
+      await expectProjectResources(page.locator(".filter-dialog"), "en");
       await page.keyboard.press("Escape");
     } else {
       const navigation = page.getByRole("navigation", { name: "Directories", exact: true });
       await expect(navigation.getByRole("link", { name: "Plugins", exact: true })).toBeVisible();
       await expect(navigation.getByRole("link", { name: "Plugins", exact: true })).toHaveAttribute("href", "https://plugins.covel.cc/");
       await expect(navigation.getByRole("link", { name: "Worlds", exact: true })).toHaveAttribute("href", "https://worlds.covel.cc/");
+      await expectProjectResources(page.locator(".sidebar-bottom"), "en");
     }
+    await expectProjectResources(page.locator(".project-resources"), "en");
+    await expect(page.locator('.project-resources a[data-resource="project-source"]')).toContainText("ackness/covel");
+    await expect(page.locator('.project-resources a[data-resource="directory-source"]')).toContainText("covel-ai/covel-worlds");
+    await expect(page.locator(".contribute-strip")).toContainText("covel-world");
+    await expect(page.locator(".contribute-strip")).toContainText("covel-worlds");
     await mkdir(path.join(root, ".taste-skill/inspection"), { recursive: true });
     await page.screenshot({ path: path.join(root, `.taste-skill/inspection/worlds-${width}.png`), fullPage: true });
+    await page.getByRole("button", { name: "切换为中文", exact: true }).click();
+    await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN");
+    await expectProjectResources(page.locator(".project-resources"), "zh");
+    if (width === 390) {
+      await page.locator(".mobile-filter").click();
+      await expectProjectResources(page.locator(".filter-dialog"), "zh");
+      await page.keyboard.press("Escape");
+    } else {
+      await expectProjectResources(page.locator(".sidebar-bottom"), "zh");
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: path.join(root, `.taste-skill/inspection/worlds-${width}-zh.png`), fullPage: true });
     expect(failures).toEqual([]);
   });
 }
