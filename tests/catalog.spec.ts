@@ -54,7 +54,15 @@ for (const width of [390, 768, 1440]) {
       await page.locator(".mobile-filter").click();
       await expect(page.getByRole("dialog")).toBeVisible();
       await expect(page.getByRole("dialog").getByRole("combobox", { name: "Category", exact: true })).toBeVisible();
+      const sibling = page.getByRole("dialog").getByRole("link", { name: "Plugins", exact: true });
+      await expect(sibling).toBeVisible();
+      await expect(sibling).toHaveAttribute("href", "https://plugins.covel.cc/");
       await page.keyboard.press("Escape");
+    } else {
+      const navigation = page.getByRole("navigation", { name: "Directories", exact: true });
+      await expect(navigation.getByRole("link", { name: "Plugins", exact: true })).toBeVisible();
+      await expect(navigation.getByRole("link", { name: "Plugins", exact: true })).toHaveAttribute("href", "https://plugins.covel.cc/");
+      await expect(navigation.getByRole("link", { name: "Worlds", exact: true })).toHaveAttribute("href", "https://worlds.covel.cc/");
     }
     await mkdir(path.join(root, ".taste-skill/inspection"), { recursive: true });
     await page.screenshot({ path: path.join(root, `.taste-skill/inspection/worlds-${width}.png`), fullPage: true });
