@@ -14,7 +14,7 @@ Worlds contain story content, prompts, settings and media. Required plugins are 
 
 ## Directory
 
-[Browse worlds](https://covel-ai.github.io/covel-worlds/) · [Browse plugins](https://covel-ai.github.io/covel-plugins/)
+[Browse worlds](https://worlds.covel.cc/) · [Browse plugins](https://plugins.covel.cc/)
 
 Add **`covel-world` or `covel-worlds`** to the Topics in your public repository's About section. Either topic is sufficient; both are deduplicated. The collector reads `world.yaml` and translations, supports multiple worlds per repository, and runs every six hours, on main-branch pushes, or manually. GitHub search indexing can delay discovery.
 

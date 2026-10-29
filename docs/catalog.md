@@ -6,6 +6,25 @@ the shared Node 26 service owns persistent revisions, query pagination, moderati
 private ZIP artifacts and request counters. Hosting that service is a separate
 deployment decision from building this repository.
 
+## Public domains
+
+The chosen domains are `worlds.covel.cc` and `plugins.covel.cc`. The shared sidebar
+links the two directories. `VITE_SITE_URL` and `VITE_SIBLING_URL` can override those
+addresses for a local preview. API configuration remains separate: `api.covel.cc`
+is the proposed shared backend origin, not another GitHub Pages site.
+
+In each repository's **Settings → Pages**, choose GitHub Actions and set its
+respective custom domain before configuring DNS. In the `covel.cc` DNS zone, add
+`CNAME worlds → covel-ai.github.io` and `CNAME plugins → covel-ai.github.io` (no
+repository path or protocol). Enable Enforce HTTPS after verification/certificate
+issuance. With an Actions publishing workflow, a repository CNAME file is not
+required. See [GitHub's custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+Cloudflare Workers + D1 + private R2 is being evaluated as a managed alternative
+to operating the Node service. It requires a backend adapter and an asynchronous
+CI packaging queue; the current Node SQLite/filesystem implementation is not a
+Worker deployment. The two sites keep the same public API contract and UI.
+
 ## Local development
 
 ```sh

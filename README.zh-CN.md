@@ -14,7 +14,7 @@
 
 ## 世界目录
 
-[浏览世界目录](https://covel-ai.github.io/covel-worlds/) · [浏览插件目录](https://covel-ai.github.io/covel-plugins/)
+[浏览世界目录](https://worlds.covel.cc/) · [浏览插件目录](https://plugins.covel.cc/)
 
 在公开仓库 About 区域的 Topics 中添加 **`covel-world` 或 `covel-worlds`**，即可自动发现；同时添加也只收录一次。采集器从 `world.yaml` 和翻译文件读取介绍，支持同仓多个世界。每六小时、主分支更新或手动触发时采集，GitHub 搜索索引可能存在延迟。
 
