@@ -2,7 +2,7 @@
 
 Publish a world in your own public GitHub repository and add **`covel-world` or `covel-worlds`** to its Topics (About → settings). Either topic joins the automatic directory; no registration PR or JSON entry is needed. Multiple world directories in one repository are supported.
 
-Each package needs a valid `world.yaml` and `WORLD.md`. Include its ID, name, summary, version, default/supported locales, author and license. Keep translated display text in `world.<locale>.yaml`. See the examples in `worlds/`. Give media and third-party content their own attribution/license. Only configured repositories receive the official designation.
+Each package needs a valid `world.yaml` and `WORLD.md`. Include its name, summary, version, default locale, author and license (its ID defaults to the directory name when `id` is omitted). Keep translated display text in `world.<locale>.yaml` and translated lore in `WORLD.<locale>.md` (other editions are discovered from files; bare language names such as `.en` are ignored). See the examples in `worlds/`. Give media and third-party content their own attribution/license. Only configured repositories receive the official designation.
 
 Use an independent world ID and `world.yaml` version. Keep executable plugins in their own packages. Never include credentials, personal exports, acceptance-test transcripts or unverifiable quality claims. Explain gameplay, dependencies, installation and limitations in the package README.
 
