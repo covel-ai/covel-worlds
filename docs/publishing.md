@@ -1,8 +1,8 @@
 # Publishing and updates / 发布与更新
 
-A world directory contains `world.yaml`, `WORLD.md` in the world's `defaultLocale`, and referenced data/media files. Each file holds one language: other supported locales live beside it as `world.<locale>.yaml`, `WORLD.<locale>.md` and `<file>.<locale>.<ext>`, with the locale spelled exactly as `supportedLocales` writes it. All paths remain inside the package. No build/install scripts run during import.
+A world directory contains `world.yaml`, `WORLD.md` in the world's `defaultLocale`, and referenced data/media files. Each file holds one language: other editions are discovered from sibling `world.<locale>.yaml`, `WORLD.<locale>.md` and `<file>.<locale>.<ext>` files using full BCP 47 locale tags such as `zh-CN` (never bare language codes like `.en`). All paths remain inside the package. No build/install scripts run during import.
 
-世界包目录包含 manifest、`defaultLocale` 语言的 `WORLD.md`，以及引用的数据和媒体。每个文件只写一种语言，其他语言放在旁边的 `world.<locale>.yaml`、`WORLD.<locale>.md` 与 `<文件>.<locale>.<扩展名>` 中，locale 写法与 `supportedLocales` 完全一致。路径不可越出包目录。导入时不会执行构建或安装脚本。
+世界包目录包含 manifest、`defaultLocale` 语言的 `WORLD.md`，以及引用的数据和媒体。每个文件只写一种语言，其他语言版本通过旁边的 `world.<locale>.yaml`、`WORLD.<locale>.md` 与 `<文件>.<locale>.<扩展名>` 自动发现，使用完整 BCP 47 标签（如 `zh-CN`，勿使用 `.en`）。路径不可越出包目录。导入时不会执行构建或安装脚本。
 
 Each world has its own version, independent of Covel. Branch installs track that branch; repository URLs track the default branch. Tags/commits are pinned. To choose another tag, paste the same repository and world directory with a new ref, for example `https://github.com/covel-ai/covel-worlds/tree/lantern-island%2Fv1.0.0/worlds/lantern-island` after publishing that tag. This is a URL example, not an existing release.
 
